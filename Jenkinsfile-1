@@ -3,13 +3,14 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
+    
   stages {
-    stage('Scan') {
-      steps {
-        withSonarQubeEnv(installationName: 'soanrqube') { 
-          sh 'mvn sonar:sonar'
+    stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                  sh 'mvn sonar:sonar'
+                }
+            }
         }
-      }
-    }
   }
 }
