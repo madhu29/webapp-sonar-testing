@@ -1,5 +1,7 @@
 pipeline {
   agent any
+  
+   def mvnHome = tool 'M2_HOME' 
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -8,7 +10,7 @@ pipeline {
     stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') {
-                  sh 'mvn sonar:sonar'
+                  sh '$(mvnHome)/bin/mvn sonar:sonar'
                 }
             }
         }
